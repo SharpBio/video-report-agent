@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>生成进度</title>
+<link rel="stylesheet" href="./mini.css">
+</head>
+<body>
+  <div id="grip" class="grip" title="拖动我移动窗口">
+    <span class="dot" id="dot"></span>
+    <span class="grip-title">视频总结</span>
+    <button id="close" class="x" title="关闭">×</button>
+  </div>
+
+  <div class="body">
+    <div id="title" class="title">正在准备…</div>
+    <div class="line">
+      <span id="badge" class="badge">排队中</span>
+      <span id="pct" class="pct">0%</span>
+    </div>
+    <div class="track"><div id="fill" class="fill"></div></div>
+    <div class="line meta">
+      <span id="stage">—</span>
+      <span id="elapsed">0:00</span>
+    </div>
+    <div id="note" class="note hidden"></div>
+  </div>
+
+  <div class="acts">
+    <button id="open" class="mini-btn" disabled>查看报告</button>
+    <button id="video" class="mini-btn" disabled>原视频</button>
+    <button id="cancel" class="mini-btn warn">取消</button>
+  </div>
+  <script type="module" src="./mini.js"></script>
+</body>
+</html>

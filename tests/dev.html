@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>B站视频总结 自检</title>
+<style>
+:root { color-scheme: light; }
+body { margin:0; padding:24px; background:#f2f5f7; color:#242d35;
+  font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif; }
+h1 { font-size:20px; margin:0 0 4px; }
+.sub { color:#65717d; font-size:13px; margin:0 0 18px; }
+table { border-collapse:collapse; width:100%; background:#fff; border:1px solid #e6ebee; border-radius:8px; }
+th, td { text-align:left; padding:6px 10px; border-bottom:1px solid #eef1f3; font-size:13px; }
+th { background:#fafbfc; font-weight:600; }
+tr:last-child td { border-bottom:none; }
+.pass { color:#1a7f37; font-weight:600; }
+.fail { color:#b3401f; font-weight:600; }
+.summary { margin-top:14px; font-weight:600; }
+pre { background:#fff; border:1px solid #e6ebee; border-radius:8px; padding:12px; overflow:auto; font-size:12.5px; }
+.warn { display:none; margin:0 0 18px; padding:12px 14px; border-radius:8px;
+  background:#fff6e5; border:1px solid #f0d9a8; color:#7a4a05; }
+.warn.on { display:block; }
+.warn code { background:#fff; padding:1px 5px; border-radius:4px; }
+.warn ul { margin:8px 0 0; padding-left:20px; }
+</style>
+</head>
+<body>
+<h1>自检</h1>
+<p class="sub">运行纯函数用例；不需要网络、不需要已安装运行数据。</p>
+
+<div class="warn" id="file-warn">
+  <strong>不要直接用 file:// 打开本页。</strong>
+  Chrome 会拦截 <code>file://</code> 下的 ES 模块（CORS: origin <code>null</code>），
+  <code>dev.js</code> 根本不会执行 —— 这就是页面空白的原因。请改用下面任意一种方式：
+  <ul>
+    <li>无浏览器：<code>node tests/run.mjs</code>（在 extension 目录下）</li>
+    <li>作为扩展页：<code>chrome-extension://&lt;扩展ID&gt;/tests/dev.html</code></li>
+    <li>起个本地服务：<code>python -m http.server 8765 --directory .</code>
+        然后打开 <code>http://127.0.0.1:8765/tests/dev.html</code></li>
+  </ul>
+</div>
+
+<div class="warn" id="load-warn">
+  <strong>dev.js 没有加载成功。</strong>打开 DevTools 控制台看具体报错；若地址是
+  <code>file://</code>，请改用上面列出的方式。
+</div>
+
+<table>
+<thead><tr><th style="width:90px">结果</th><th>用例</th><th style="width:40%">详情</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+<div id="summary" class="summary"></div>
+<pre id="log"></pre>
+
+<!--
+  注意：扩展页的 CSP 是 script-src 'self'，禁止内联脚本。
+  所以提示逻辑放在外部文件 dev-warn.js 里（经典脚本，即使 dev.js 加载失败也会执行）。
+-->
+<script src="./dev-warn.js"></script>
+<script type="module" src="./dev.js"></script>
+</body>
+</html>

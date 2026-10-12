@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  extension:
+    name: Chrome 扩展静态检查
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: 安装 ESLint（仓库不分发 node_modules）
+        run: npm install --no-save eslint@9
+      - name: node 检查（用例 / lint / ESLint / 装配）
+        run: npm run check

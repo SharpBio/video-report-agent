@@ -1,0 +1,63 @@
+{
+  "manifest_version": 3,
+  "name": "B站视频总结",
+  "version": "0.1.0",
+  "minimum_chrome_version": "116",
+  "description": "把公开 Bilibili 视频转写为自包含 HTML 精读报告，并导出全页 PNG。",
+
+  "permissions": [
+    "storage",
+    "offscreen",
+    "scripting",
+    "declarativeNetRequest",
+    "alarms",
+    "cookies",
+    "downloads",
+    "tabs"
+  ],
+
+  "host_permissions": [
+    "<all_urls>",
+    "*://*.bilibili.com/*",
+    "https://b23.tv/*",
+    "*://*.bilivideo.com/*",
+    "*://*.bilivideo.cn/*",
+    "*://*.hdslb.com/*",
+    "*://*.akamaized.net/*",
+    "*://*.akamaihd.net/*",
+    "*://*.aliyuncs.com/*",
+    "https://api.deepseek.com/*",
+    "https://open.bigmodel.cn/*"
+  ],
+
+  "background": {
+    "service_worker": "src/background/sw.js",
+    "type": "module"
+  },
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "生成视频总结"
+  },
+
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+
+  "sandbox": {
+    "pages": ["sandbox/eval.html"]
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["sandbox/eval.html"],
+      "matches": ["<all_urls>"],
+      "use_dynamic_url": false
+    }
+  ],
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; frame-src 'self'"
+  }
+}

@@ -1,0 +1,54 @@
+:root { color-scheme: light; }
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font: 14px/1.6 -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #414b55;
+  background: #f2f5f7;
+}
+
+.chrome {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 14px;
+  background: #ffffffee;
+  border-bottom: 1px solid #e6ebee;
+  backdrop-filter: blur(6px);
+}
+
+.chrome-title { font-weight: 600; font-size: 13px; }
+.chrome-actions { display: flex; gap: 6px; }
+.mini {
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 10px;
+  border: 1px solid #e6ebee;
+  border-radius: 5px;
+  background: #fff;
+  color: #23658b;
+  cursor: pointer;
+}
+
+.stage { padding-top: 45px; }
+.stage.capture { padding-top: 0; }
+
+.empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: #65717d;
+}
+
+/* Capture mode: exact viewport width (set inline from window.innerWidth), no scrollbar, no chrome. */
+body.capture { width: auto; overflow-x: hidden; }
+body.capture .chrome { display: none; }
+body.capture .stage { padding-top: 0; }
+body.capture::-webkit-scrollbar { width: 0; height: 0; }
+body.capture { scrollbar-width: none; }

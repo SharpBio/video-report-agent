@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>历史记录</title>
+<link rel="stylesheet" href="./history.css">
+</head>
+<body>
+<main class="wrap">
+  <header class="head">
+    <div>
+      <h1>历史记录</h1>
+      <p class="sub">任务、报告与导出的全部记录都在这里。删除会连同音频文件一起清掉。</p>
+    </div>
+    <div class="head-actions">
+      <button id="refresh" class="ghost">刷新</button>
+      <button id="mini" class="ghost">显示浮层</button>
+    </div>
+  </header>
+
+  <section id="stats" class="stats"></section>
+
+  <section class="toolbar">
+    <input id="q" class="search" type="search" placeholder="搜索标题 / BV 号 / 链接" spellcheck="false">
+    <select id="status">
+      <option value="all">全部状态</option>
+      <option value="active">进行中</option>
+      <option value="done">已完成</option>
+      <option value="failed">失败</option>
+      <option value="cancelled">已取消</option>
+    </select>
+    <select id="sort">
+      <option value="created-desc">最新创建</option>
+      <option value="created-asc">最早创建</option>
+      <option value="finished-desc">最近完成</option>
+      <option value="duration-desc">时长最长</option>
+      <option value="title-asc">按标题</option>
+    </select>
+    <span class="grow"></span>
+    <label class="check-all"><input id="select-all" type="checkbox"> 全选</label>
+    <button id="delete-selected" class="ghost" disabled>删除选中</button>
+    <button id="clear-done" class="ghost">清空已完成</button>
+    <button id="clear-all" class="ghost danger">清空全部</button>
+  </section>
+
+  <p id="summary" class="summary"></p>
+
+  <ul id="list" class="list"></ul>
+  <div id="empty" class="empty hidden">没有符合条件的任务。</div>
+</main>
+
+<div id="toast" class="toast hidden"></div>
+<script type="module" src="./history.js"></script>
+</body>
+</html>

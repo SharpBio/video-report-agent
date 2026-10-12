@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>设置</title>
+<link rel="stylesheet" href="./options.css">
+</head>
+<body>
+<main class="wrap">
+  <header class="head">
+    <h1>B站视频总结 · 设置</h1>
+    <p class="sub">密钥只保存在本机（chrome.storage.local），不会同步到账号。</p>
+  </header>
+
+  <section class="card">
+    <h2>模型</h2>
+    <div class="grid">
+      <label class="field">
+        <span>服务商</span>
+        <select id="llm-provider">
+          <option value="deepseek">DeepSeek</option>
+          <option value="zhipu">智谱 GLM</option>
+          <option value="moonshot">Moonshot</option>
+          <option value="siliconflow">SiliconFlow</option>
+          <option value="dashscope">百炼（通义）</option>
+          <option value="custom">自定义</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>接口地址</span>
+        <input id="llm-baseUrl" type="text" spellcheck="false">
+      </label>
+      <label class="field">
+        <span>模型</span>
+        <input id="llm-model" type="text" spellcheck="false">
+      </label>
+      <label class="field wide">
+        <span>API Key</span>
+        <input id="llm-apiKey" type="password" spellcheck="false" autocomplete="off">
+      </label>
+      <label class="field">
+        <span>思考模式</span>
+        <select id="llm-thinking">
+          <option value="off">关闭</option>
+          <option value="on">开启</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>工具调用方式</span>
+        <select id="llm-toolsMode">
+          <option value="native">原生 function calling</option>
+          <option value="text">代码块回退</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>单次最大输出 token</span>
+        <input id="llm-maxOutputTokens" type="number" min="1024" max="32768">
+      </label>
+      <label class="field">
+        <span>请求超时（毫秒）</span>
+        <input id="llm-timeoutMs" type="number" min="30000" max="900000">
+      </label>
+    </div>
+    <div class="row">
+      <button id="test-llm" class="ghost">测试模型连接</button>
+      <span id="test-llm-out" class="out"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>语音识别</h2>
+    <div class="grid">
+      <label class="field">
+        <span>启用</span>
+        <select id="asr-enabled">
+          <option value="true">启用</option>
+          <option value="false">停用（只用粘贴转写）</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>模型</span>
+        <select id="asr-model"></select>
+      </label>
+      <label class="field">
+        <span>接口地址</span>
+        <input id="asr-baseUrl" type="text" spellcheck="false">
+      </label>
+      <label class="field wide">
+        <span>API Key</span>
+        <input id="asr-apiKey" type="password" spellcheck="false" autocomplete="off">
+      </label>
+      <label class="field">
+        <span>轮询间隔（秒）</span>
+        <input id="asr-pollSeconds" type="number" min="2" max="60">
+      </label>
+      <label class="field">
+        <span>最长等待（秒）</span>
+        <input id="asr-maxWaitSeconds" type="number" min="60" max="3600">
+      </label>
+      <label class="field">
+        <span>音频大小上限（MB）</span>
+        <input id="asr-maxAudioMB" type="number" min="1" max="900">
+      </label>
+    </div>
+    <div class="row">
+      <button id="test-asr" class="ghost">测试语音识别连接</button>
+      <span id="test-asr-out" class="out"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>报告</h2>
+    <div class="grid">
+      <label class="field">
+        <span>模式</span>
+        <select id="report-mode" disabled>
+          <option value="standard">standard</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>修订轮</span>
+        <select id="report-review">
+          <option value="true">启用</option>
+          <option value="false">停用</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>章节时间</span>
+        <select id="report-sectionTime">
+          <option value="computed">按来源单元计算</option>
+          <option value="model">由模型给出</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>长图宽度</span>
+        <input id="report-imageWidth" type="number" min="600" max="1600">
+      </label>
+      <label class="field">
+        <span>最大章节数</span>
+        <input id="report-maxSections" type="number" min="1" max="24">
+      </label>
+      <label class="field wide">
+        <span>页尾链接</span>
+        <input id="report-footerUrl" type="text" spellcheck="false">
+      </label>
+      <label class="field">
+        <span>沙箱执行（exec_js）</span>
+        <select id="report-execJs">
+          <option value="false">启用</option>
+          <option value="true">禁用</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>来源与保留</h2>
+    <div class="grid">
+      <label class="field">
+        <span>优先来源</span>
+        <select id="ingest-prefer">
+          <option value="page">打开的视频页</option>
+          <option value="api">公开接口</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>解除 60 分钟上限</span>
+        <select id="ingest-truncate">
+          <option value="false">保持（≤60 分钟）</option>
+          <option value="true">允许 5 小时</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>保留运行数</span>
+        <input id="retention-keepLast" type="number" min="0" max="200">
+      </label>
+      <label class="field">
+        <span>媒体保留天数</span>
+        <input id="retention-maxAgeDays" type="number" min="0" max="365">
+      </label>
+      <label class="field">
+        <span>保留音频</span>
+        <select id="retention-keepAudio">
+          <option value="false">完成后删除</option>
+          <option value="true">保留</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>界面</h2>
+    <div class="grid">
+      <label class="field">
+        <span>后台浮层</span>
+        <select id="ui-floating">
+          <option value="true">开启：弹窗关掉后继续显示进度</option>
+          <option value="false">关闭</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>跑完以后</span>
+        <select id="ui-floating-auto">
+          <option value="false">浮层留在原地，手动关</option>
+          <option value="true">任务结束即自动关闭</option>
+        </select>
+      </label>
+    </div>
+    <p class="sub">任务始终在后台跑，关掉弹窗不会中断它；浮层只是一个能看见进度的小窗，
+      位置会被记住，下次原地打开。</p>
+    <div class="row">
+      <button id="mini-now" class="ghost">立即显示浮层</button>
+      <span id="mini-out" class="out"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>自检</h2>
+    <p class="sub">不改任何设置。跑一遍只有真机才能验证的运行时假设，任何一项不过都会给出原因。</p>
+    <div class="row">
+      <button id="selftest" class="ghost">运行自检</button>
+      <span id="selftest-out" class="out"></span>
+    </div>
+    <ul id="selftest-list" class="checklist"></ul>
+  </section>
+
+  <section class="card">
+    <h2>上次失败诊断</h2>
+    <p class="sub">打开这一页就自动加载。任务失败时只留下一句「Failed to fetch」是没法排错的，
+      这里给出：死在哪一跳、那一跳前后的日志、以及带行号的堆栈。</p>
+    <div class="row">
+      <button id="diag-reload" class="ghost">重新加载</button>
+      <button id="diag-copy" class="ghost">复制全文</button>
+      <span id="diag-out" class="out"></span>
+    </div>
+    <pre id="diag-body" class="out diag">尚未加载。</pre>
+  </section>
+
+  <div class="foot">
+    <button id="save" class="primary">保存</button>
+    <button id="request" class="ghost">授权额外站点</button>
+    <button id="prune" class="ghost">立即清理媒体</button>
+    <span id="saved" class="out"></span>
+  </div>
+  <p id="problems" class="problems"></p>
+</main>
+<script type="module" src="./options.js"></script>
+</body>
+</html>

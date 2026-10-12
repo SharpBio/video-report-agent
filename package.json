@@ -1,0 +1,14 @@
+{
+  "name": "bilibili-video-summary",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "仅用于让 Node 把 .js 当作 ES 模块解析，以便 tests/*.mjs 无浏览器跑检查；Chrome 不读取本文件。",
+  "scripts": {
+    "test": "node tests/run.mjs",
+    "lint": "node tests/lint.mjs",
+    "eslint": "node tests/eslint.mjs",
+    "links": "node tests/links.mjs",
+    "check": "node tests/run.mjs --quiet && node tests/lint.mjs && node tests/eslint.mjs && node tests/links.mjs"
+  }
+}

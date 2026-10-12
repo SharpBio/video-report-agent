@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>B站视频总结</title>
+<link rel="stylesheet" href="./popup.css">
+</head>
+<body>
+<header class="bar">
+  <span class="brand">B站视频总结</span>
+  <span class="links">
+    <a id="history" class="link" href="#">历史</a>
+    <a id="mini" class="link" href="#">浮层</a>
+    <a id="settings" class="link" href="#">设置</a>
+  </span>
+</header>
+
+<main class="body">
+  <div id="page-hint" class="hint">检测当前页面…</div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="url">视频链接</button>
+    <button class="tab" data-tab="paste">粘贴转写</button>
+  </div>
+
+  <section id="pane-url" class="pane">
+    <label class="field">
+      <span>B 站视频链接</span>
+      <input id="url" type="text" placeholder="https://www.bilibili.com/video/BV..." spellcheck="false">
+    </label>
+    <p class="note">插件会读取当前视频页的播放地址；不在视频页时请粘贴完整链接。</p>
+  </section>
+
+  <section id="pane-paste" class="pane hidden">
+    <label class="field">
+      <span>标题（可选）</span>
+      <input id="paste-title" type="text" placeholder="视频标题">
+    </label>
+    <label class="field">
+      <span>转写文本</span>
+      <textarea id="paste-text" rows="6"
+        placeholder="[unit-000001 | 0.090–3.790s] 这里是转写内容…"></textarea>
+    </label>
+    <p class="note">粘贴转写会跳过下载与语音识别，直接生成报告。</p>
+  </section>
+
+  <div class="actions">
+    <button id="start" class="primary">生成报告</button>
+    <button id="cancel" class="ghost hidden">取消</button>
+  </div>
+
+  <div id="progress" class="progress hidden">
+    <div class="track"><div id="progress-fill" class="fill"></div></div>
+    <div id="progress-text" class="status"></div>
+  </div>
+
+  <section class="runs">
+    <div class="runs-head">
+      <span>最近任务</span>
+      <span class="heads">
+        <button id="refresh" class="mini">刷新</button>
+        <a id="history-all" class="link" href="#">全部</a>
+      </span>
+    </div>
+    <ul id="run-list" class="run-list"></ul>
+  </section>
+</main>
+
+<script type="module" src="./popup.js"></script>
+</body>
+</html>
