@@ -223,7 +223,7 @@ standard 模式、5 份 reference、4 份提示词、报告模板），缺一个
 
 - **上游致谢**：报告的结构与措辞规则、`video-report` Skill（SKILL.md / standard 模式 /
   报告模板 / 五份 reference）与提示词体系衍生自
-  [imexlovery/video-report-agent](https://github.com/imexlovery/video-report-agent)（MIT），
+  [imexlovery/video-report-agent](https://github.com/imexlovery/video-report-agent)，
   本仓库是其 Python 流水线的纯浏览器移植，仅发布 Chrome 扩展形态，特此致谢。
 - **在线网站**：上游的在线报告服务 [vreport.tri4t.xyz](https://vreport.tri4t.xyz/)
   （与本仓库代码相互独立，仅供体验）。
